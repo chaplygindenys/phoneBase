@@ -1,0 +1,38 @@
+*{margin: 0px;
+ padding: 0px;
+    box-sizing: border-box;
+ }
+body {
+    background-color: #f5f7fa;
+    padding: 40px;
+}
+.main {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+.base {
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+}
+td{
+    background-color: darkslategrey;
+
+    font-size: 24px;
+    margin-left: 10px;
+    padding-left: 30px;
+    padding-right: 40px;
+}
+
+
+label{
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: column;
+}
+input{
+    width: 300px;
+    font-size: 24px;
+    height: 30px;
+}

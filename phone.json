@@ -1,0 +1,54 @@
+{"1231": {
+  "number": "555-555-55",
+  "name": "Andrey",
+  "femaleName": "Yshako",
+  "street": "summer",
+  "houseNumber": "5",
+  "flat": "2"
+
+},
+  "1232": {
+    "number": "555-333-333",
+    "name": "Denys",
+    "femaleName": "Ystimenko",
+    "street": "spring",
+    "houseNumber": "4",
+    "flat": "3"
+
+  },
+  "1233": {
+    "number": "555-456",
+    "name": "Oleg",
+    "femaleName": "Yshako",
+    "street": "summer",
+    "houseNumber": "5",
+    "flat": "4"
+
+  },
+  "1234": {
+    "number": "555-333-22",
+    "name": "Ura",
+    "femaleName": "Glushko",
+    "street": "atom",
+    "houseNumber": "2",
+    "flat": "6"
+
+  },
+  "1235": {
+    "number": "555-111-111",
+    "name": "Dima",
+    "femaleName": "Yshako",
+    "street": "summer",
+    "houseNumber": "1",
+    "flat": "52"
+
+  },
+  "1236": {
+    "number": "555-555-55",
+    "name": "Sasha",
+    "femaleName": "Yshako",
+    "street": "summer",
+    "houseNumber": "5",
+    "flat": "55"
+  }
+}
