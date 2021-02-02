@@ -39,7 +39,7 @@ function phoneOut(indata) {
            let id = targetelem.id;
             if(id!== undefined ){
                 console.log(id);
-                selectEvent(id);
+                aselectEvent(id);
             }else {
              console.log(":)");}
     }
@@ -52,7 +52,7 @@ function phoneOut(indata) {
 }
 
 
-function selectEvent(id){
+function aselectEvent(id){
 
 
 
