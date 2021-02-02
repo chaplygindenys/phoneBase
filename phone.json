@@ -2,53 +2,71 @@
   "number": "555-555-55",
   "name": "Andrey",
   "femaleName": "Yshako",
+  "surname": "",
   "street": "summer",
   "houseNumber": "5",
-  "flat": "2"
+  "article": "",
+    "flat": "2",
+    "room":"" 
 
 },
   "1232": {
     "number": "555-333-333",
     "name": "Denys",
     "femaleName": "Ystimenko",
+    "surname":"",
     "street": "spring",
     "houseNumber": "4",
-    "flat": "3"
+   "article": "",
+    "flat": "4",
+    "room":"" 
 
   },
   "1233": {
     "number": "555-456",
     "name": "Oleg",
     "femaleName": "Yshako",
+    "surname": "",
     "street": "summer",
     "houseNumber": "5",
-    "flat": "4"
+   "article": "",
+    "flat": "7",
+    "room":"" 
 
   },
   "1234": {
     "number": "555-333-22",
     "name": "Ura",
     "femaleName": "Glushko",
+    "surname": "",
     "street": "atom",
     "houseNumber": "2",
-    "flat": "6"
+   "article": "1",
+    "flat": "6",
+    "room":"a" 
 
   },
   "1235": {
     "number": "555-111-111",
     "name": "Dima",
     "femaleName": "Yshako",
+    "surname": "",
     "street": "summer",
     "houseNumber": "1",
-    "flat": "52"
+    "article": "",
+    "flat": "2",
+    "room":"" 
 
   },
   "1236": {
     "number": "555-555-55",
     "name": "Sasha",
     "femaleName": "Yshako",
+    "surname": "",
     "street": "summer",
     "houseNumber": "5",
-    "flat": "55"
+    "article": "",
+    "flat": "2",
+    "room":"" 
   }
 }
