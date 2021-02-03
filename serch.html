@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <form action="//spravochnik109.link/ukraina/kiyevskaya-oblast/stolitsa-ukrainy/kiyev#menu">
+        <label for="phone"><span>По номеру телефона</span></label><br>
+        <input type="text" name="phone" id="phone" maxlength="30" autocomplete="off"> без кода страны и города, допускается разделитель"-"<br>
+        <input type="radio" name="phoneSubStr" id="pss0" checked="1" value="0"><label for="pss0">Полное совпадение</label> <input type="radio" name="phoneSubStr" id="pss1" value="1"><label for="pss1">По первым цифрам</label><br><br>
+
+        <label for="soname"><span>По фамилии</span></label><label for="io" style="margin-left: 132px;"><span>Инициалам</span></label><br>
+        <input type="text" name="soname" id="soname" maxlength="40" autocomplete="off"><input type="text" name="io" id="io" maxlength="4" autocomplete="off"> допускается шаблон "%"(любые символы)<br>
+        <input type="radio" name="sonameSubStr" id="sss0" checked="1" value="0"><label for="sss0">Полное совпадение</label> <input type="radio" name="sonameSubStr" id="sss1" value="1"><label for="sss1">По первым буквам</label><br><br>
+
+        <label for="street"><span>По улице, для поиска по адресу</span></label><br>
+        <input type="text" name="street" id="street" maxlength="40" autocomplete="off"> допускаются шаблоны "%"(любые символы), "_"(символ)<br>
+        <input type="radio" name="streetSubStr" id="stss0" value="0"><label for="stss0">Полное совпадение</label> <input type="radio" name="streetSubStr" id="stss1" checked="1" value="1"><label for="stss1">По первым буквам</label><br><br>
+
+        <label for="house"><span>№ дома</span></label><label for="housing" style="margin-left: 25px;"><span>Корпус(буква)</span></label><label for="door" style="margin-left: 17px;"><span>№ квартиры</span></label><br>
+        <input type="text" name="house" id="house" maxlength="5" autocomplete="off"> - <input type="text" name="housing" id="housing" maxlength="4" autocomplete="off"><input type="text" name="door" id="door" maxlength="4" autocomplete="off"><br>
+
+
+        <br>
+        <br>
+        <input type="hidden" name="page" value="1">
+        <input type="submit" class="button" value="Поиск по справочнику"><input type="reset" class="button" value="Сброс значений">
+    </form>
+</div>
+</body>
+</html>
+document.querySelector("#main > div.outInfo > div > form")

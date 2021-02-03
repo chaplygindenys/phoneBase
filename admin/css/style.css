@@ -128,6 +128,17 @@ td#hn:hover{
     opacity: 50%;
     border: 10px black;
 }
+.up{
+    text-decoration: overline;
+    text-decoration-color: white;
+    text-decoration-width: 10px ;
+}
+.down{
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-width: 5px ;
+}
+
 .phone1 {
 width: 1250px;
 }
