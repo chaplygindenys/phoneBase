@@ -40,7 +40,7 @@ function phoneOut(indata) {
         let id = targetelem.id;
 
         if (id !== null && id !== "") {
-            if (upDown !== "up") {
+            if (upDown !== "down") {
                 selectEvent(id + "down")
             } else {
                 selectEvent(id + "up")
@@ -53,22 +53,22 @@ function phoneOut(indata) {
     function selectEvent(id) {
         switch (id) {
             case "pnup" :
-                sortByNumber(id, data);
+                sortByNumberUp(id, data);
                 break;
             case "pndown" :
-                sortByNumber(id, data);
+                sortByNumberDown(id, data);
                 break;
             case "nameup" :
-                sortByName(id, data);
+                sortByNameUp(id, data);
                 break;
             case "namedown" :
-                sortByName(id, data);
+                sortByNameDown(id, data);
                 break;
             case "fnup" :
-                sortByFemaleName(id, data);
+                sortByFemaleNameUp(id, data);
                 break;
             case "fndown" :
-                sortByFemaleName(id, data);
+                sortByFemaleNameDown(id, data);
                 break;
             case "stup" :
                 sortByStreetUp(id, data);
@@ -100,17 +100,119 @@ function goToform(id, data) {
     console.log(data)
 }
 
-function sortByNumber(id) {
+function sortByNumberUp(id, data) {
 
-    console.log(id)
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.pn').innerHTML)
+    console.log(nav.children[2].querySelector('.pn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.pn').innerHTML;
+            let b = nav.children[j].querySelector('.pn').innerHTML;
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
 }
+function sortByNumberDown(id, data) {
 
-function sortByName(id) {
-    console.log(id)
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.pn').innerHTML)
+    console.log(nav.children[2].querySelector('.pn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.pn').innerHTML;
+            let b = nav.children[j].querySelector('.pn').innerHTML;
+            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
 }
+function sortByNameUp(id, data) {
 
-function sortByFemaleName(id) {
-    console.log(id)
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.name').innerHTML)
+    console.log(nav.children[2].querySelector('.name').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.name').innerHTML;
+            let b = nav.children[j].querySelector('.name').innerHTML;
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
+}
+function sortByNameDown(id, data) {
+
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.name').innerHTML)
+    console.log(nav.children[2].querySelector('.name').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.name').innerHTML;
+            let b = nav.children[j].querySelector('.name').innerHTML;
+            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
+}
+function sortByFemaleNameUp(id, data) {
+
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.fn').innerHTML)
+    console.log(nav.children[2].querySelector('.fn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.fn').innerHTML;
+            let b = nav.children[j].querySelector('.fn').innerHTML;
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
+}
+function sortByFemaleNameDown(id, data) {
+
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.fn').innerHTML)
+    console.log(nav.children[2].querySelector('.fn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.fn').innerHTML;
+            let b = nav.children[j].querySelector('.fn').innerHTML;
+            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#hn').setAttribute('class', 'up')
 }
 function sortByStreetUp(id, data) {
 
@@ -129,10 +231,8 @@ function sortByStreetUp(id, data) {
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#st').setAttribute('class', 'up')
 }
-
-
 function sortByStreetDown(id, data) {
 
     let nav = document.querySelector(".out");
@@ -152,13 +252,6 @@ function sortByStreetDown(id, data) {
     }
     document.querySelector('#hn').setAttribute('class', 'up')
 }
-
-
-
-
-
-
-
 function sortHouseNumberUp(id, data) {
 
     let nav = document.querySelector(".out");
@@ -169,7 +262,7 @@ function sortHouseNumberUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.hn').innerHTML;
             let b = nav.children[j].querySelector('.hn').innerHTML;
-            if (a > b) { //if a > b == 1  sort "up"
+            if (a < b) { //if a < b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
@@ -178,7 +271,6 @@ function sortHouseNumberUp(id, data) {
     }
     document.querySelector('#hn').setAttribute('class', 'up')
 }
-
 function sortHouseNumberDown(id, data) {
 
     let nav = document.querySelector(".out");
@@ -189,7 +281,7 @@ function sortHouseNumberDown(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.hn').innerHTML;
             let b = nav.children[j].querySelector('.hn').innerHTML;
-            if (a< b) { //if a > b == 1 sort "down"
+            if (a > b) { //if a > b == 1 sort "down"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
@@ -198,7 +290,6 @@ function sortHouseNumberDown(id, data) {
     }
     document.querySelector('#hn').setAttribute('class', 'down')
 }
-
 function sortByFlatUp(id, data) {
 
     let nav = document.querySelector(".out");
@@ -209,7 +300,7 @@ function sortByFlatUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.fl').innerHTML;
             let b = nav.children[j].querySelector('.fl').innerHTML;
-            if (a > b) { //if a > b == 1  sort "up"
+            if (a < b) { //if a < b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
@@ -218,7 +309,6 @@ function sortByFlatUp(id, data) {
     }
     document.querySelector('#fl').setAttribute('class', 'up')
 }
-
 function sortByFlatDown(id, data) {
 
     let nav = document.querySelector(".out");
@@ -230,7 +320,7 @@ function sortByFlatDown(id, data) {
             let a = nav.children[i].querySelector('.fl').innerHTML;
             let b = nav.children[j].querySelector('.fl').innerHTML;
 
-            if (a < b ) { //if a > b  sort "down"
+            if (a > b ) { //if a > b  sort "down"
                   // replacedNode=parentNode.replaceChild(childrenNew,.childrenOld)
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
