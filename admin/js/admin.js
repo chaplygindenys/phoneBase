@@ -7,7 +7,7 @@ function init() {
         phoneOut
     );
 }
-function searchForm(ask, column ){
+function searchForm(ask, column ){  // связь с PHP function
     $.post(
         "core.php",{
 
@@ -20,7 +20,7 @@ function searchForm(ask, column ){
     )
 }
 
-function phoneOut(indata) {
+function phoneOut(indata) { //выводит содержимое на страницу
     console.log(indata)
     // выводим на страницу
     let data = JSON.parse(indata);
@@ -63,7 +63,7 @@ function phoneOut(indata) {
     }
 
 
-    function selectEvent(idUpDown,id) {
+    function selectEvent(idUpDown,id) {  //проверяет и  распределяет по функциям в зависимости от иветта в таблице
         switch (idUpDown) {
             case "pnup" :
                 sortByNumberUp(id);
@@ -115,8 +115,13 @@ function phoneOut(indata) {
     }
 }
 
-function goToform(id, data) {
-    console.log(id)
+function goToform(phone, dataArray) { // автозаполнение формы по номеру телефона
+    let data = objectFindByKey(dataArray, "number", phone);
+    $('.phoneNumber').val(data.number);
+    $('.femaleName').val(data.famely );
+    $('.street').val(data.streets);
+    $('.houseNumber').val(data.houses);
+    $('.flat').val(data.flats  );
 }
 
 function sortByNumberUp(id, data) {
@@ -390,6 +395,15 @@ function sortByFlatDown(id, data) {
 
 function insertAfter(elem, refElem) {
     return refElem.parentNode.insertBefore(elem, refElem.nextSibling);
+}
+
+function objectFindByKey(array, key, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][key] === value) {
+            return array[i];
+        }
+    }
+    return null;
 }
 
 $(document).ready(function () {
