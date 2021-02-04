@@ -7,9 +7,9 @@ switch ($action) {
     case 'init':
         init();
         break;
-//    case 1:
-//        echo "i равно 1";
-//        break;
+    case 'selectSearch' :
+        selectSearch();
+        break;
 //    case 2:
 //        echo "i равно 2";
 //        break;

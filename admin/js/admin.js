@@ -7,27 +7,39 @@ function init() {
         phoneOut
     );
 }
+function searchForm(ask, column ){
+    $.post(
+        "core.php",{
+
+            "action" : "selectSearch",
+            "ask"    : ask,
+            "column" : column
+        },
+
+        phoneOut
+    )
+}
 
 function phoneOut(indata) {
+    console.log(indata)
     // выводим на страницу
     let data = JSON.parse(indata);
+    console.log(data)
     let out = ""
     out += '<tr class="phone1">' +
-        '            <td id="pn">Phone Number</td>\n' +
-        '            <td id="name">Name</td>\n' +
+        '            <td id="pn">Phone </td>\n' +
         '            <td id="fn">Female Name</td>\n' +
-        '            <td id="st">Street</td>\n' +
-        '            <td id="hn">House Number</td>\n' +
-        '            <td id="fl">Flat</td>\n' +
+        '            <td id="st">Streets</td>\n' +
+        '            <td id="hn">Houses </td>\n' +
+        '            <td id="fl">Flats</td>\n' +
         '      </tr>';
     for (let key in data) {
         out += ' <tr class="phone1" >' +
             '<td class="pn" id ="' + data[key].number + '"  >' + data[key].number + '</td>\n' +
-            '<td class="name">' + data[key].name + '</td>\n' +
-            '<td class="fn">' + data[key].femaleName + '</td>\n ' +
-            '<td class="st">' + data[key].street + '</td>\n ' +
-            '<td class="hn">' + data[key].houseNumber + '</td>\n' +
-            ' <td class="fl" >' + data[key].flat + '</td>\n' +
+            '<td class="fn">' + data[key].famely + '</td>\n ' +
+            '<td class="st">' + data[key].streets + '</td>\n ' +
+            '<td class="hn">' + data[key].houses + '</td>\n' +
+            ' <td class="fl" >' + data[key].flats + '</td>\n' +
             '</tr>';
 
     }
@@ -41,52 +53,59 @@ function phoneOut(indata) {
 
         if (id !== null && id !== "") {
             if (upDown !== "down") {
-                selectEvent(id + "down")
+                selectEvent(id + "down",id)
             } else {
-                selectEvent(id + "up")
+                selectEvent(id + "up",id)
             }
         } else {
             console.log(":)");
         }
     }
 
-    function selectEvent(id) {
-        switch (id) {
+
+    function selectEvent(idUpDown,id) {
+        switch (idUpDown) {
             case "pnup" :
-                sortByNumberUp(id, data);
+                sortByNumberUp(id);
                 break;
             case "pndown" :
-                sortByNumberDown(id, data);
+                sortByNumberDown(id);
                 break;
             case "nameup" :
-                sortByNameUp(id, data);
+                sortByNameUp(id);
                 break;
             case "namedown" :
-                sortByNameDown(id, data);
+                sortByNameDown(id);
                 break;
             case "fnup" :
-                sortByFemaleNameUp(id, data);
+                sortByFemaleNameUp(id);
                 break;
             case "fndown" :
-                sortByFemaleNameDown(id, data);
+                sortByFemaleNameDown(id);
+                break;
+            case "snup" :
+                sortBySurNameUp(id);
+                break;
+            case "sndown" :
+                sortBySurNameDown(id);
                 break;
             case "stup" :
-                sortByStreetUp(id, data);
+                sortByStreetUp(id);
                 break;
             case "stdown" :
-                sortByStreetDown(id, data);
+                sortByStreetDown(id);
                 break;
             case "hnup":
-                sortHouseNumberUp(id, data);
+                sortHouseNumberUp(id);
                 break;
             case "hndown":
-                sortHouseNumberDown(id, data);
+                sortHouseNumberDown(id);
                 break;
             case "flup":
-                sortByFlatUp(id, data);
+                sortByFlatUp(id);
                 break;
             case "fldown":
-                sortByFlatDown(id, data);
+                sortByFlatDown(id);
                 break;
             default:
                 goToform(id, data);
@@ -97,7 +116,7 @@ function phoneOut(indata) {
 }
 
 function goToform(id, data) {
-    console.log(data)
+    console.log(id)
 }
 
 function sortByNumberUp(id, data) {
@@ -110,14 +129,14 @@ function sortByNumberUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.pn').innerHTML;
             let b = nav.children[j].querySelector('.pn').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#pn').setAttribute('class', 'up')
 }
 function sortByNumberDown(id, data) {
 
@@ -129,14 +148,14 @@ function sortByNumberDown(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.pn').innerHTML;
             let b = nav.children[j].querySelector('.pn').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#pn').setAttribute('class', 'down')
 }
 function sortByNameUp(id, data) {
 
@@ -148,14 +167,14 @@ function sortByNameUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.name').innerHTML;
             let b = nav.children[j].querySelector('.name').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#name').setAttribute('class', 'up')
 }
 function sortByNameDown(id, data) {
 
@@ -167,14 +186,14 @@ function sortByNameDown(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.name').innerHTML;
             let b = nav.children[j].querySelector('.name').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#name').setAttribute('class', 'down')
 }
 function sortByFemaleNameUp(id, data) {
 
@@ -186,14 +205,14 @@ function sortByFemaleNameUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.fn').innerHTML;
             let b = nav.children[j].querySelector('.fn').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#fn').setAttribute('class', 'up')
 }
 function sortByFemaleNameDown(id, data) {
 
@@ -205,14 +224,52 @@ function sortByFemaleNameDown(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.fn').innerHTML;
             let b = nav.children[j].querySelector('.fn').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#fn').setAttribute('class', 'down')
+}
+function sortBySurNameUp(id, data) {
+
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.sn').innerHTML)
+    console.log(nav.children[2].querySelector('.sn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.sn').innerHTML;
+            let b = nav.children[j].querySelector('.sn').innerHTML;
+            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#sn').setAttribute('class', 'up')
+}
+function sortBySurNameDown(id, data) {
+
+    let nav = document.querySelector(".out");
+    console.log(nav)
+    console.log(nav.children[1].querySelector('.sn').innerHTML)
+    console.log(nav.children[2].querySelector('.sn').innerHTML)
+    for (let i = 1; i < nav.children.length; i++) {
+        for (let j = i; j < nav.children.length; j++) {
+            let a = nav.children[i].querySelector('.sn').innerHTML;
+            let b = nav.children[j].querySelector('.sn').innerHTML;
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
+                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
+                insertAfter(replacedNode, nav.children[i])
+
+            }
+        }
+    }
+    document.querySelector('#sn').setAttribute('class', 'down')
 }
 function sortByStreetUp(id, data) {
 
@@ -224,7 +281,7 @@ function sortByStreetUp(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.st').innerHTML;
             let b = nav.children[j].querySelector('.st').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) < 0) { //if a< b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
@@ -243,14 +300,14 @@ function sortByStreetDown(id, data) {
         for (let j = i; j < nav.children.length; j++) {
             let a = nav.children[i].querySelector('.st').innerHTML;
             let b = nav.children[j].querySelector('.st').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
+            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#st').setAttribute('class', 'down')
 }
 function sortHouseNumberUp(id, data) {
 
@@ -336,5 +393,5 @@ function insertAfter(elem, refElem) {
 }
 
 $(document).ready(function () {
-    init();
+    searchForm( "ТАЕЖНАЯ","streets");
 });

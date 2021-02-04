@@ -89,6 +89,20 @@ td#fn:hover{
     opacity: 50%;
     border: 10px black;
 }
+
+#sn {
+    background-color: darkslategrey;
+    font-size: 24px;
+    margin-left: 10px;
+    padding-left: 30px;
+    padding-right: 40px;
+    width: 250px;
+}
+td#sn:hover{
+    cursor: pointer;
+    opacity: 50%;
+    border: 10px black;
+}
 #st {
     background-color: darkslategrey;
     font-size: 24px;
@@ -128,6 +142,7 @@ td#hn:hover{
     opacity: 50%;
     border: 10px black;
 }
+
 .up{
     text-decoration: overline;
     text-decoration-color: white;
@@ -169,7 +184,14 @@ td.fn {
     padding-right: 40px;
     width: 300px;
 }
-
+td.sn {
+    background-color: darkslategrey;
+    font-size: 24px;
+    margin-left: 10px;
+    padding-left: 30px;
+    padding-right: 40px;
+    width: 250px;
+}
 .st {
     background-color: darkslategrey;
     font-size: 24px;

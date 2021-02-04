@@ -1,10 +1,9 @@
 <?php
 GLOBAL $pdo, $out;
-$out = connect();
-function connect()
+function connect($askDb)
 {
     $host='localhost';
-    $db = 'db_phoneBase';
+    $db = 'phoneBase';
     $user = 'root';
     $pass = '!1D@123PRG!!34519Sfgdj';
     $charset='utF8';
@@ -16,7 +15,7 @@ function connect()
     ];
     $pdo = new PDO($dsn,$user,$pass,$opt);
     try {
-        $arrey = $pdo->query('SELECT * from phone')->fetchAll(PDO::FETCH_ASSOC);
+        $arrey = $pdo->query("$askDb" )->fetchAll(PDO::FETCH_ASSOC);
         $pdo = null;
         return $arrey;
     } catch (PDOException $e) {
@@ -25,13 +24,27 @@ function connect()
     }
 }
 
-function init()
-{     global $out;
+function init(){
+    global $out;
     if ($out > 0) {
       echo json_encode($out);
     } else {
         echo "0";
     }
 }
+function selectSearch(){
+   /* global $askDb;*/
+    $ask = $_POST["ask"];
+    $column =$_POST["column"];
+    $askDb = "SELECT * FROM phone WHERE $column ='$ask'";
+   $resalt = connect($askDb);
 
+    if ($resalt > 0) {
+        echo json_encode($resalt);
+    } else {
+        echo "0";
+    }
+
+
+}
 
