@@ -10,7 +10,7 @@ switch ($action) {
     case 'selectSearch' :
         selectSearch();
         break;
-//    case 2:
-//        echo "i равно 2";
-//        break;
+    case "addPhone":
+             addPhone();
+        break;
 }

@@ -7,18 +7,7 @@ function init() {
         phoneOut
     );
 }
-function searchForm(ask, column ){  // связь с PHP function
-    $.post(
-        "core.php",{
 
-            "action" : "selectSearch",
-            "ask"    : ask,
-            "column" : column
-        },
-
-        phoneOut
-    )
-}
 
 function phoneOut(indata) { //выводит содержимое на страницу
     console.log(indata)
@@ -34,7 +23,7 @@ function phoneOut(indata) { //выводит содержимое на стра�
         '            <td id="fl">Flats</td>\n' +
         '      </tr>';
     for (let key in data) {
-        out += ' <tr class="phone1" >' +
+        out += ' <tr class="phone2" >' +
             '<td class="pn" id ="' + data[key].number + '"  >' + data[key].number + '</td>\n' +
             '<td class="fn">' + data[key].famely + '</td>\n ' +
             '<td class="st">' + data[key].streets + '</td>\n ' +
@@ -406,6 +395,42 @@ function objectFindByKey(array, key, value) {
     return null;
 }
 
+function searchForm(){  // связь с PHP function
+    $.post(
+        "core.php",{
+
+            "action" : "selectSearch",
+            "ask"    : "44954",
+            "column" : "number"
+        },
+
+        phoneOut
+    )
+}
+function addForm(){  // связь с PHP function
+    let pn = $('.phoneNumber').val();
+    let fn = $('.femaleName').val();
+    let st = $('.street').val();
+    let hn = $('.houseNumber').val();
+    let fl = $('.flat').val();
+    if(((pn && fn && st && hn && fl) !== null) && ((pn && fn && st && hn && fl) !== undefined)){
+        $.post(
+            "core.php",{
+
+                "action" : "addPhone",
+                "pn" : pn,
+                "fn" : fn,
+                "st" : st,
+                "hn" : hn,
+                "fl" : fl,
+            },
+
+            function (){ console.log("ok")}
+        )
+    } else{ console.log("все_поля_пустые")}
+}
 $(document).ready(function () {
-    searchForm( "ТАЕЖНАЯ","streets");
+
+    /*$('.searchPhone').on('click',*/ searchForm();/*);*/
+    $('.addPhone').on('click', addForm )
 });
