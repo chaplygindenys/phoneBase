@@ -3,13 +3,14 @@ function init() {
         "core.php",
         {
             "action": "init"
-        },
-        streetOut
+        }
     );
+    $.getJSON("../phone.json", streetOut);
 }
 
-function streetOut(indata){
-    let data = JSON.parse(indata);
+function streetOut(data){
+    console.log(data)
+  /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
         '            <td id="st">Streets</td>\n' +

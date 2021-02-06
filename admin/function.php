@@ -5,7 +5,7 @@ function init(){
     $resalt = connect($askDb);
 
     if ($resalt > 0) {
-        echo json_encode($resalt);
+        file_put_contents('../phone.json',json_encode($resalt));
     } else {
         echo "0";
     }
@@ -64,12 +64,12 @@ function selectSearch(){
     }else{  $fl =$_POST["fl"];
         $fl ="AND flats ='$fl'"; };
      $id="id >'0'";
-   $ask =$id.$pn.$fn.$st.$hn.$fl;
+
     $askDb = "SELECT * FROM phone WHERE $id $pn $fn $st $hn $fl";
    $resalt = connect($askDb);
 
     if ($resalt > 0) {
-        echo json_encode($resalt);
+       echo json_encode($resalt);
     } else {
         echo "0";
     }
