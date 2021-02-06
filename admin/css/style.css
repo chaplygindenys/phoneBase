@@ -14,7 +14,11 @@ body {
     display: flex;
     flex-direction: row;
 }
+.updatePhone{
+    display: flex;
+    flex-direction: row;
 
+}
 .base {
     background-color: aquamarine;
     display: flex;
@@ -44,8 +48,7 @@ width: 1250px;
 
 }
 
-#pn {
-    background-color: #98cbef;
+#pn { background-color: #98cbef;
     font-size: 24px;
     margin-left: 10px;
     padding-left: 30px;
@@ -56,8 +59,8 @@ td#pn:hover{
     cursor: pointer;
     opacity: 50%;
     border: 10px black;
-
 }
+
 .mouseClick{
     border: 5px white;
     opacity: 60% ;
@@ -161,16 +164,11 @@ td#hn:hover{
 }
 
 .pn{
-    background-color: #98cbef;
     font-size: 24px;
     margin-left: 10px;
     padding-left: 30px;
     padding-right: 40px;
     width: 300px;
-}
-.pn:hover{
-    cursor: pointer;
-    opacity: 50%;
 }
 
 .name {
@@ -206,7 +204,13 @@ td.sn {
     padding-right: 40px;
     width: 250px;
 }
+.tdhover{ background-color: #98cbef;}
+.tdhover:hover{
+    cursor: pointer;
+    opacity: 50%;
+    border: 10px black;
 
+}
 .hn {
     background-color: #d1dce6;
     font-size: 24px;

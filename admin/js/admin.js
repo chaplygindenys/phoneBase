@@ -1,19 +1,82 @@
 function init() {
-    $.post(
+   $.post(
         "core.php",
         {
             "action": "init"
         },
-        phoneOut
+        streetOut
     );
 }
+function streetOut(indata){
+    let data = JSON.parse(indata);
+    let out = ""
+    out += '<tr class="phone1">' +
+        '            <td id="st">Streets</td>\n' +
+        '            <td id="st">Streets</td>\n' +
+        '            <td id="st">Streets</td>\n' +
+        '      </tr>';
+    for(let i = 1; i < data.length-1; i=i+3){
+
+        out += ' <tr class="phone2" >' +
+            '<td class="st tdhover" id ="' + data[i-1].streets + '"  >' + data[i-1].streets + '"</td>\n' +
+            '<td class="st tdhover" id ="' + data[i].streets + '"  >' + data[i].streets + '</td>\n ' +
+            '<td class="st tdhover" id ="' + data[i+1].streets + '"  >' + data[i+1].streets + '</td>\n ' +
+            '</tr>';
 
 
+    }
+
+    $('.out').html(out);
+
+    let eventTd = document.querySelector('table');
+    eventTd.onclick = function (event) {
+        let targetelem = event.target;
+        let upDown = targetelem.className;
+        let id = targetelem.id;
+
+        if (id !== null && id !== "") {
+            if (upDown !== "down") {
+                selectEventOnStreets(id + "down",id,data )
+            } else {
+                selectEventOnStreets(id + "up",id,data)
+            }
+        } else {
+            console.log(":)");
+        }
+    }
+}
+function selectEventOnStreets(idUpDown,id,data){
+    switch (idUpDown) {
+        case "stup" :
+            sortByStreetUp(id);
+            break;
+        case "stdown" :
+            sortByStreetDown(id);
+            break;
+            default:
+                streetsSearch(0,0,id,0,0);
+            break;
+
+    }
+}
+function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
+    $.post(
+        "core.php",{
+
+            "action" :'selectSearch' ,
+            "pn" : pn,
+            "fn" : fn,
+            "st" : st,
+            "hn" : hn,
+            "fl" : fl,
+        },
+
+        phoneOut
+    )
+}
 function phoneOut(indata) { //выводит содержимое на страницу
-    console.log(indata)
     // выводим на страницу
     let data = JSON.parse(indata);
-    console.log(data)
     let out = ""
     out += '<tr class="phone1">' +
         '            <td id="pn">Phone </td>\n' +
@@ -24,7 +87,7 @@ function phoneOut(indata) { //выводит содержимое на стра�
         '      </tr>';
     for (let key in data) {
         out += ' <tr class="phone2" >' +
-            '<td class="pn" id ="' + data[key].number + '"  >' + data[key].number + '</td>\n' +
+            '<td class="pn tdhover" id ="' + data[key].number + '"  >' + data[key].number + '</td>\n' +
             '<td class="fn">' + data[key].famely + '</td>\n ' +
             '<td class="st">' + data[key].streets + '</td>\n ' +
             '<td class="hn">' + data[key].houses + '</td>\n' +
@@ -42,69 +105,54 @@ function phoneOut(indata) { //выводит содержимое на стра�
 
         if (id !== null && id !== "") {
             if (upDown !== "down") {
-                selectEvent(id + "down",id)
+                selectEvent(id + "down",id,data)
             } else {
-                selectEvent(id + "up",id)
+                selectEvent(id + "up",id,data)
             }
         } else {
             console.log(":)");
         }
     }
+}
+function selectEvent(idUpDown,id,data) {  //проверяет и  распределяет по функциям в зависимости от иветта в таблице
+    switch (idUpDown) {
+        case "pnup" :
+            sortByStringUp(id);
+            break;
+        case "pndown" :
+            sortByStringDown(id);
+            break;
+        case "fnup" :
+            sortByStringUp(id);
+            break;
+        case "fndown" :
+            sortByStringDown(id);
+            break;
+        case "stup" :
+            sortByStringUp(id);
+            break;
+        case "stdown" :
+            sortByStringDown(id);
+            break;
+        case "hnup":
+            sortByNumberUp(id);
+            break;
+        case "hndown":
+            sortByNumberDown(id);
+            break;
+        case "flup":
+            sortByNumberUp(id);
+            break;
+        case "fldown":
+            sortByNumberDown(id);
+            break;
+        default:
+            goToForm(id, data);
+            break;
 
-
-    function selectEvent(idUpDown,id) {  //проверяет и  распределяет по функциям в зависимости от иветта в таблице
-        switch (idUpDown) {
-            case "pnup" :
-                sortByNumberUp(id);
-                break;
-            case "pndown" :
-                sortByNumberDown(id);
-                break;
-            case "nameup" :
-                sortByNameUp(id);
-                break;
-            case "namedown" :
-                sortByNameDown(id);
-                break;
-            case "fnup" :
-                sortByFemaleNameUp(id);
-                break;
-            case "fndown" :
-                sortByFemaleNameDown(id);
-                break;
-            case "snup" :
-                sortBySurNameUp(id);
-                break;
-            case "sndown" :
-                sortBySurNameDown(id);
-                break;
-            case "stup" :
-                sortByStreetUp(id);
-                break;
-            case "stdown" :
-                sortByStreetDown(id);
-                break;
-            case "hnup":
-                sortHouseNumberUp(id);
-                break;
-            case "hndown":
-                sortHouseNumberDown(id);
-                break;
-            case "flup":
-                sortByFlatUp(id);
-                break;
-            case "fldown":
-                sortByFlatDown(id);
-                break;
-            default:
-                goToform(id, data);
-                break;
-
-        }
     }
 }
-
-function goToform(phone, dataArray) { // автозаполнение формы по номеру телефона
+function goToForm(phone, dataArray) { // автозаполнение формы по номеру телефона
     let data = objectFindByKey(dataArray, "number", phone);
     $('.phoneNumber').val(data.number);
     $('.femaleName').val(data.famely );
@@ -112,169 +160,16 @@ function goToform(phone, dataArray) { // автозаполнение формы
     $('.houseNumber').val(data.houses);
     $('.flat').val(data.flats  );
 }
-
-function sortByNumberUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.pn').innerHTML)
-    console.log(nav.children[2].querySelector('.pn').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.pn').innerHTML;
-            let b = nav.children[j].querySelector('.pn').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a > b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#pn').setAttribute('class', 'up')
-}
-function sortByNumberDown(id, data) {
+function sortByStringUp(id, data) {
 
     let nav = document.querySelector(".out");
     console.log(nav)
-    console.log(nav.children[1].querySelector('.pn').innerHTML)
-    console.log(nav.children[2].querySelector('.pn').innerHTML)
+    console.log(nav.children[1].querySelector('.'+id).innerHTML)
+    console.log(nav.children[2].querySelector('.'+id).innerHTML)
     for (let i = 1; i < nav.children.length; i++) {
         for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.pn').innerHTML;
-            let b = nav.children[j].querySelector('.pn').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#pn').setAttribute('class', 'down')
-}
-function sortByNameUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.name').innerHTML)
-    console.log(nav.children[2].querySelector('.name').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.name').innerHTML;
-            let b = nav.children[j].querySelector('.name').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#name').setAttribute('class', 'up')
-}
-function sortByNameDown(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.name').innerHTML)
-    console.log(nav.children[2].querySelector('.name').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.name').innerHTML;
-            let b = nav.children[j].querySelector('.name').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#name').setAttribute('class', 'down')
-}
-function sortByFemaleNameUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.fn').innerHTML)
-    console.log(nav.children[2].querySelector('.fn').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.fn').innerHTML;
-            let b = nav.children[j].querySelector('.fn').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#fn').setAttribute('class', 'up')
-}
-function sortByFemaleNameDown(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.fn').innerHTML)
-    console.log(nav.children[2].querySelector('.fn').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.fn').innerHTML;
-            let b = nav.children[j].querySelector('.fn').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#fn').setAttribute('class', 'down')
-}
-function sortBySurNameUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.sn').innerHTML)
-    console.log(nav.children[2].querySelector('.sn').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.sn').innerHTML;
-            let b = nav.children[j].querySelector('.sn').innerHTML;
-            if ((a.localeCompare(b)) < 0) { //if a < b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#sn').setAttribute('class', 'up')
-}
-function sortBySurNameDown(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.sn').innerHTML)
-    console.log(nav.children[2].querySelector('.sn').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.sn').innerHTML;
-            let b = nav.children[j].querySelector('.sn').innerHTML;
-            if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#sn').setAttribute('class', 'down')
-}
-function sortByStreetUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.st').innerHTML)
-    console.log(nav.children[2].querySelector('.st').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.st').innerHTML;
-            let b = nav.children[j].querySelector('.st').innerHTML;
+            let a = nav.children[i].querySelector('.'+id).innerHTML;
+            let b = nav.children[j].querySelector('.'+id).innerHTML;
             if ((a.localeCompare(b)) < 0) { //if a< b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
@@ -282,18 +177,18 @@ function sortByStreetUp(id, data) {
             }
         }
     }
-    document.querySelector('#st').setAttribute('class', 'up')
+    document.querySelector('#'+id).setAttribute('class', 'up')
 }
-function sortByStreetDown(id, data) {
+function sortByStringDown(id, data) {
 
     let nav = document.querySelector(".out");
     console.log(nav)
-    console.log(nav.children[1].querySelector('.st').innerHTML)
-    console.log(nav.children[2].querySelector('.st').innerHTML)
+    console.log(nav.children[1].querySelector('.'+id).innerHTML)
+    console.log(nav.children[2].querySelector('.'+id).innerHTML)
     for (let i = 1; i < nav.children.length; i++) {
         for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.st').innerHTML;
-            let b = nav.children[j].querySelector('.st').innerHTML;
+            let a = nav.children[i].querySelector('.'+id).innerHTML;
+            let b = nav.children[j].querySelector('.'+id).innerHTML;
             if ((a.localeCompare(b)) > 0) { //if a > b == 1  sort "down"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
@@ -301,123 +196,69 @@ function sortByStreetDown(id, data) {
             }
         }
     }
-    document.querySelector('#st').setAttribute('class', 'down')
+    document.querySelector('#'+id).setAttribute('class', 'down')
 }
-function sortHouseNumberUp(id, data) {
+function sortByNumberUp(id, data) {
 
     let nav = document.querySelector(".out");
     console.log(nav)
-    console.log(nav.children[1].querySelector('.hn').innerHTML)
-    console.log(nav.children[2].querySelector('.hn').innerHTML)
+    console.log(nav.children[1].querySelector('.'+id).innerHTML)
+    console.log(nav.children[2].querySelector('.'+id).innerHTML)
     for (let i = 1; i < nav.children.length; i++) {
         for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.hn').innerHTML;
-            let b = nav.children[j].querySelector('.hn').innerHTML;
-            if (a < b) { //if a < b == 1  sort "up"
+            let a = nav.children[i].querySelector('.'+id).innerHTML;
+            let b = nav.children[j].querySelector('.'+id).innerHTML;
+            if (+a < +b) { //if a < b == 1  sort "up"
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'up')
+    document.querySelector('#'+id).setAttribute('class', 'up')
 }
-function sortHouseNumberDown(id, data) {
+function sortByNumberDown(id, data) {
 
     let nav = document.querySelector(".out");
     console.log(nav)
-    console.log(nav.children[1].querySelector('.hn').innerHTML)
-    console.log(nav.children[2].querySelector('.hn').innerHTML)
+    console.log(nav.children[1].querySelector('.'+id).innerHTML)
+    console.log(nav.children[2].querySelector('.'+id).innerHTML)
     for (let i = 1; i < nav.children.length; i++) {
         for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.hn').innerHTML;
-            let b = nav.children[j].querySelector('.hn').innerHTML;
-            if (a > b) { //if a > b == 1 sort "down"
+            let a = nav.children[i].querySelector('.'+id).innerHTML;
+            let b = nav.children[j].querySelector('.'+id).innerHTML;
+            if (+a > +b) { //if a > b == 1 sort "down" "+"--(it is number)
                 let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
                 insertAfter(replacedNode, nav.children[i])
 
             }
         }
     }
-    document.querySelector('#hn').setAttribute('class', 'down')
+    document.querySelector('#'+id).setAttribute('class', 'down')
 }
-function sortByFlatUp(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.fl').innerHTML)
-    console.log(nav.children[2].querySelector('.fl').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.fl').innerHTML;
-            let b = nav.children[j].querySelector('.fl').innerHTML;
-            if (a < b) { //if a < b == 1  sort "up"
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }
-        }
-    }
-    document.querySelector('#fl').setAttribute('class', 'up')
-}
-function sortByFlatDown(id, data) {
-
-    let nav = document.querySelector(".out");
-    console.log(nav)
-    console.log(nav.children[1].querySelector('.fl').innerHTML)
-    console.log(nav.children[2].querySelector('.fl').innerHTML)
-    for (let i = 1; i < nav.children.length; i++) {
-        for (let j = i; j < nav.children.length; j++) {
-            let a = nav.children[i].querySelector('.fl').innerHTML;
-            let b = nav.children[j].querySelector('.fl').innerHTML;
-
-            if (a > b ) { //if a > b  sort "down"
-                  // replacedNode=parentNode.replaceChild(childrenNew,.childrenOld)
-                let replacedNode = nav.replaceChild(nav.children[j], nav.children[i]);
-                insertAfter(replacedNode, nav.children[i])
-
-            }else{console.log("ok")}
-        }
-    }
-    document.querySelector('#fl').setAttribute('class', 'down')
-}
-
 function insertAfter(elem, refElem) {
     return refElem.parentNode.insertBefore(elem, refElem.nextSibling);
 }
-
-function objectFindByKey(array, key, value) {
-    for (var i = 0; i < array.length; i++) {
-        if (array[i][key] === value) {
-            return array[i];
+function objectFindByKey(data, key, value) {
+    for (var i = 0; i < data.length; i++) {
+        if (data[i][key] === value) {
+            return data[i];
         }
     }
     return null;
 }
 
-function searchForm(){  // связь с PHP function
-    $.post(
-        "core.php",{
-
-            "action" : "selectSearch",
-            "ask"    : "44954",
-            "column" : "number"
-        },
-
-        phoneOut
-    )
-}
-function addForm(){  // связь с PHP function
+function addSearchForm(ask){  // связь с PHP function
     let pn = $('.phoneNumber').val();
     let fn = $('.femaleName').val();
     let st = $('.street').val();
     let hn = $('.houseNumber').val();
     let fl = $('.flat').val();
-    if(((pn && fn && st && hn && fl) !== null) && ((pn && fn && st && hn && fl) !== undefined)){
+    if(((pn && fn && st && hn && fl) !== null) && ((pn && fn && st && hn && fl) !== "0")){
         $.post(
             "core.php",{
 
-                "action" : "addPhone",
+                "action" : ask,
                 "pn" : pn,
                 "fn" : fn,
                 "st" : st,
@@ -425,12 +266,22 @@ function addForm(){  // связь с PHP function
                 "fl" : fl,
             },
 
-            function (){ console.log("ok")}
+            function (data){
+                if(data !== null) {
+                    console.log(data)
+                   alert("The row is it.(Страка готова)");
+                    phoneOut(data)
+            }
+            }
         )
-    } else{ console.log("все_поля_пустые")}
+    } else{ alert("Add ask to forms.(добавте запрос в форму)")}
 }
-$(document).ready(function () {
+ $(document).ready(function () {
+    init();
+   let eventSearch = document.querySelector('.searchPhone');
+    eventSearch.onclick = function (event) {addSearchForm("selectSearch")}
 
-    /*$('.searchPhone').on('click',*/ searchForm();/*);*/
-    $('.addPhone').on('click', addForm )
+
+     let eventAdd = document.querySelector('.addPhone');
+     eventAdd.onclick = function (event) {addSearchForm("addPhone")}
 });

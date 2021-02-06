@@ -1,4 +1,17 @@
 <?php
+function init(){
+
+    $askDb = "SELECT DISTINCT `streets` FROM `phone` ORDER BY `phone`.`streets` ASC";
+    $resalt = connect($askDb);
+
+    if ($resalt > 0) {
+        echo json_encode($resalt);
+    } else {
+        echo "0";
+    }
+
+
+}
 
 function connect($askDb)
 {
@@ -25,19 +38,36 @@ function connect($askDb)
     }
 }
 
-function init(){
-    global $out;
-    if ($out > 0) {
-      echo json_encode($out);
-    } else {
-        echo "0";
-    }
-}
 function selectSearch(){
-   /* global $askDb;*/
-    $ask = $_POST["ask"];
-    $column =$_POST["column"];
-    $askDb = "SELECT * FROM phone WHERE $column ='$ask'";
+   if(($_POST["pn"] =="")||($_POST["pn"] == "0")){
+        $pn = NULL ;
+   }else{  $pn =$_POST["pn"];
+       $pn ="AND number ='$pn'"; };
+
+    if(($_POST["fn"] =="")||($_POST["fn"] == "0")){
+        $fn = NULL ;
+    }else{  $fn =$_POST["fn"];
+        $fn ="AND famely = '$fn'"; };
+
+    if(($_POST["st"] =="")||($_POST["st"] == "0")){
+        $pn = NULL;
+    }else{  $st =$_POST["st"];
+        $st ="AND streets = '$st'"; };
+
+
+    if(($_POST["hn"] =="")||($_POST["hn"] == "0")){
+        $pn =NULL ;
+    }else{  $hn = $_POST["hn"];
+        $hn ="AND houses ='$hn'"; };
+
+
+    if(($_POST["fl"] =="")||($_POST["fl"] =="0")){
+        $fl = NULL ;
+    }else{  $fl =$_POST["fl"];
+        $fl ="AND flats ='$fl'"; };
+     $id="id >'0'";
+   $ask =$id.$pn.$fn.$st.$hn.$fl;
+    $askDb = "SELECT * FROM phone WHERE $id $pn $fn $st $hn $fl";
    $resalt = connect($askDb);
 
     if ($resalt > 0) {
@@ -45,10 +75,9 @@ function selectSearch(){
     } else {
         echo "0";
     }
-
-
 }
- function addPhone(){
+
+  function addPhone(){
      $pn = $_POST["pn"];
     $fn = $_POST["fn"];
     $st = $_POST["st"];
@@ -92,7 +121,7 @@ function selectSearch(){
          $stmt->execute();
 
          // echo a message to say the UPDATE succeeded
-         echo $stmt->rowCount() . " records UPDATED successfully".$sql;
+         returnNewPhone($pn);
      } catch(PDOException $e) {
          echo $sql . "<br>" . $e->getMessage();
      }
@@ -120,10 +149,23 @@ function selectSearch(){
          $sql = "INSERT INTO phone (number, famely,streets,houses,flats) VALUES ('$pn','$fn','$st','$hn','$fl')";
          // use exec() because no results are returned
          $pdo->exec($sql);
-         echo "New record created successfully";
+
+         // Select new row and comeback it.
+         returnNewPhone($pn);
      } catch(PDOException $e) {
          echo $sql . "<br>" . $e->getMessage();
      }
 
      $conn = null;
  }
+
+function returnNewPhone($pn){
+    $askDb = "SELECT * FROM phone WHERE number ='$pn'";
+    $resalt = connect($askDb);
+
+    if ($resalt > 0) {
+        echo json_encode($resalt);
+    } else {
+        echo "0";
+    }
+}

@@ -4,7 +4,7 @@ $action = $_POST['action'];
 require_once 'function.php';
 
 switch ($action) {
-    case 'init':
+   case 'init':
         init();
         break;
     case 'selectSearch' :
