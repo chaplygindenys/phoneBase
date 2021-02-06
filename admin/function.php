@@ -12,7 +12,6 @@ function init(){
 
 
 }
-
 function connect($askDb)
 {
     $host='localhost';
@@ -37,7 +36,6 @@ function connect($askDb)
         die();
     }
 }
-
 function selectSearch(){
    if(($_POST["pn"] =="")||($_POST["pn"] == "0")){
         $pn = NULL ;
@@ -76,7 +74,6 @@ function selectSearch(){
         echo "0";
     }
 }
-
   function addPhone(){
      $pn = $_POST["pn"];
     $fn = $_POST["fn"];
@@ -91,7 +88,6 @@ function selectSearch(){
              insertPhone($pn,$fn,$st,$hn,$fl);
          }
 }
-
  function updatePhone($pn,$fn,$st,$hn,$fl){
 
      $host='localhost';
@@ -128,7 +124,6 @@ function selectSearch(){
 
      $pdo = null;
  }
-
  function insertPhone($pn,$fn,$st,$hn,$fl){
 
      $host='localhost';
@@ -158,7 +153,6 @@ function selectSearch(){
 
      $conn = null;
  }
-
 function returnNewPhone($pn){
     $askDb = "SELECT * FROM phone WHERE number ='$pn'";
     $resalt = connect($askDb);
