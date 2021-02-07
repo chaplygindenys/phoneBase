@@ -13,9 +13,7 @@ function streetOut(data){
   /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
-        '            <td id="st">Streets</td>\n' +
-        '            <td id="st">Streets</td>\n' +
-        '            <td id="st">Streets</td>\n' +
+        '            <td id="st">Streets:</td>\n' +
         '      </tr>';
     for(let i = 1; i < data.length-1; i=i+3){
 
@@ -50,10 +48,10 @@ function streetOut(data){
 function selectEventOnStreets(idUpDown,id,data){
     switch (idUpDown) {
         case "stup" :
-            sortByStreetUp(id);
+            sortByStringUp(id);
             break;
         case "stdown" :
-            sortByStreetDown(id);
+            sortByStringDown(id);
             break;
             default:
                 streetsSearch(0,0,id,0,0);
