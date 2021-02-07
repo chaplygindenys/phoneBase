@@ -1,16 +1,16 @@
 function init() {
-   $.post(
-        "core.php", //dir from html
+    $.post(
+        "core.php",
         {
             "action": "init"
         }
     );
-    $.getJSON("phone.json", streetOut); //dir from html
+    $.getJSON("phone.json", streetOut);
 }
 
 function streetOut(data){
     console.log(data)
-  /*  let data = JSON.parse(indata);*/
+    /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
         '            <td id="st">Streets</td>\n' +
@@ -55,8 +55,8 @@ function selectEventOnStreets(idUpDown,id,data){
         case "stdown" :
             sortByStreetDown(id);
             break;
-            default:
-                streetsSearch(0,0,id,0,0);
+        default:
+            streetsSearch(0,0,id,0,0);
             break;
 
     }
@@ -78,7 +78,6 @@ function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
 }
 function phoneOut(indata) { //выводит содержимое на страницу
     // выводим на страницу
-    console.log(indata);
     let data = JSON.parse(indata);
     let out = ""
     out += '<tr class="phone1">' +
@@ -272,19 +271,16 @@ function addSearchForm(ask){  // связь с PHP function
             function (data){
                 if(data !== null) {
                     console.log(data)
-                   alert("The row is it.(Страка готова)");
+                    alert("The row is it.(Страка готова)");
                     phoneOut(data)
-            }
+                }
             }
         )
     } else{ alert("Add ask to forms.(добавте запрос в форму)")}
 }
- $(document).ready(function () {
+$(document).ready(function () {
     init();
-   let eventSearch = document.querySelector('.searchPhone');
+    let eventSearch = document.querySelector('.searchPhone');
     eventSearch.onclick = function (event) {addSearchForm("selectSearch")}
 
-
-     let eventAdd = document.querySelector('.addPhone');
-     eventAdd.onclick = function (event) {addSearchForm("addPhone")}
 });
