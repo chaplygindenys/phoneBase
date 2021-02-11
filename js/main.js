@@ -1,11 +1,11 @@
 function init() {
     $.post(
-        "core.php",
+        "core.php", //dir from html
         {
             "action": "init"
         }
     );
-    $.getJSON("phone.json", streetOut);
+    $.getJSON("phone.json", streetOut); //dir from html
 }
 
 function streetOut(data){
@@ -13,7 +13,7 @@ function streetOut(data){
     /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
-        '            <th id="st">Streets</th>\n' +
+        '            <th id="st">Streets:</th>\n' +
         '      </tr>';
     for(let i = 1; i < data.length-1; i=i+3){
 
@@ -74,8 +74,10 @@ function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
         phoneOut
     )
 }
+
 function phoneOut(indata) { //выводит содержимое на страницу
     // выводим на страницу
+    console.log(indata);
     let data = JSON.parse(indata);
     let out = ""
     out += '<tr class="phone1">' +
@@ -254,11 +256,11 @@ function addSearchForm(ask){  // связь с PHP function
     let st = $('.street').val();
     let hn = $('.houseNumber').val();
     let fl = $('.flat').val();
-    if(((pn && fn && st && hn && fl) !== null) && ((pn && fn && st && hn && fl) !== "0")){
+    if((pn!==null && pn!=="0")||(fn!==null && fn!=="0")|| (st!==null && st!=="0")||(hn!==null && hn!=="0")||(fl!==null && fl!=="0")){
         $.post(
             "core.php",{
 
-                "action" : ask,
+                "action" :ask ,
                 "pn" : pn,
                 "fn" : fn,
                 "st" : st,
@@ -268,16 +270,19 @@ function addSearchForm(ask){  // связь с PHP function
 
             function (data){
                 if(data !== null) {
-                    console.log(data)
                     phoneOut(data)
-                }
+                }else{ alert("нет данных")}
             }
         )
-    } else{ alert("Add ask to forms.(добавте запрос в форму)")}
+    } else { alert("Add ask to forms.(добавте запрос в форму)")}
+
 }
+
+
 $(document).ready(function () {
     init();
     let eventSearch = document.querySelector('.searchPhone');
     eventSearch.onclick = function (event) {addSearchForm("selectSearch")}
+
 
 });

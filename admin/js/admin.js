@@ -74,6 +74,7 @@ function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
         phoneOut
     )
 }
+
 function phoneOut(indata) { //выводит содержимое на страницу
     // выводим на страницу
     console.log(indata);
@@ -255,27 +256,29 @@ function addSearchForm(ask){  // связь с PHP function
     let st = $('.street').val();
     let hn = $('.houseNumber').val();
     let fl = $('.flat').val();
-    if(((pn && fn && st && hn && fl) !== null) && ((pn && fn && st && hn && fl) !== "0")){
-        $.post(
-            "core.php",{
+    if((pn!==null && pn!=="0")||(fn!==null && fn!=="0")|| (st!==null && st!=="0")||(hn!==null && hn!=="0")||(fl!==null && fl!=="0")){
+    $.post(
+        "core.php",{
 
-                "action" : ask,
-                "pn" : pn,
-                "fn" : fn,
-                "st" : st,
-                "hn" : hn,
-                "fl" : fl,
-            },
+            "action" :ask ,
+            "pn" : pn,
+            "fn" : fn,
+            "st" : st,
+            "hn" : hn,
+            "fl" : fl,
+        },
 
-            function (data){
-                if(data !== null) {
-                    console.log(data)
-                    phoneOut(data)
-            }
-            }
-        )
-    } else{ alert("Add ask to forms.(добавте запрос в форму)")}
+        function (data){
+            if(data !== null) {
+                phoneOut(data)
+            }else{ alert("нет данных")}
+        }
+    )
+} else { alert("Add ask to forms.(добавте запрос в форму)")}
+
 }
+
+
  $(document).ready(function () {
     init();
    let eventSearch = document.querySelector('.searchPhone');
