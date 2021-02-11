@@ -13,7 +13,7 @@ function streetOut(data){
   /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
-        '            <td id="st">Streets:</td>\n' +
+        '            <th id="st">Streets:</th>\n' +
         '      </tr>';
     for(let i = 1; i < data.length-1; i=i+3){
 
@@ -80,11 +80,11 @@ function phoneOut(indata) { //выводит содержимое на стра�
     let data = JSON.parse(indata);
     let out = ""
     out += '<tr class="phone1">' +
-        '            <td id="pn">Phone </td>\n' +
-        '            <td id="fn">Female Name</td>\n' +
-        '            <td id="st">Streets</td>\n' +
-        '            <td id="hn">Houses </td>\n' +
-        '            <td id="fl">Flats</td>\n' +
+        '            <th id="pn">Phone </th>\n' +
+        '            <th id="fn">Female Name</th>\n' +
+        '            <th id="st">Streets</th>\n' +
+        '            <th id="hn">Houses </th>\n' +
+        '            <th id="fl">Flats</th>\n' +
         '      </tr>';
     for (let key in data) {
         out += ' <tr class="phone2" >' +
@@ -270,7 +270,6 @@ function addSearchForm(ask){  // связь с PHP function
             function (data){
                 if(data !== null) {
                     console.log(data)
-                   alert("The row is it.(Страка готова)");
                     phoneOut(data)
             }
             }

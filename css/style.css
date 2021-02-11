@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #d1dce6;
+    background-color: #fff;
     padding: 40px;
 }
 
@@ -17,134 +17,78 @@ body {
 .updatePhone{
     display: flex;
     flex-direction: row;
-
+    width: 100%;
+    margin: auto;
+    overflow-x: auto;
 }
-.base {
-    background-color: aquamarine;
-    display: flex;
-    flex-direction: column;
-}
-
-td {
-
-}
-
-
-label {
-    background-color: greenyellow;
-    display: flex;
-    flex-direction: column;
-}
-
 input {
-    width: 300px;
-    font-size: 24px;
-    height: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width:90%;
+    text-align: center;
 }
 
-#phone1 {
-    width: 1250px;
 
-
+.base {
+    max-width: 1170px;
+    margin :auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+.mtb-3 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
-#pn { background-color: #98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 300px;
+.table-responsive{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+ overflow-x: auto;
 }
-td#pn:hover{
+.out{
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+
+}
+.out th, .out td {
+    text-align: center;
+    padding: 10px;
+}
+
+.out th{
+    background-color: #1e88e5;
+    color: #fff ;
+}
+.out th:nth-child(odd) {
+    background: #2196f3;
+}
+
+.out tr:nth-child(even) {
+    background: #f5f5f5;
+}
+ .out th{
+     transition: all .3s;
+ }
+.out th:hover{
     cursor: pointer;
     opacity: 50%;
-    border: 10px black;
 }
 
-.mouseClick{
-    border: 5px white;
-    opacity: 60% ;
-}
 
-#name {
+.tdhover{
+    transition: all .3s;
     background-color: #98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 200px;
-}
-td#name:hover{
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;}
 
-#fn {
-    background-color:#98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 300px;
 }
-td#fn:hover{
+.tdhover:hover{
     cursor: pointer;
     opacity: 50%;
-    border: 10px black;
+}
+.out td:not(:last-child){
+    border-right: 1px solid #ccc;
 }
 
-#sn {
-    background-color: #98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 250px;
-}
-td#sn:hover{
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;
-}
-#st {
-    background-color:#98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 250px;
-}
-td#st:hover {
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;
-}
-#hn {
-    background-color: #98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 50px;
-}
-td#hn:hover{
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;
-}
-#fl {
-    background-color: #98cbef;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 50px;
-}
-#fl:hover {
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;
-}
+
 
 .up{
     text-decoration: overline;
@@ -157,73 +101,19 @@ td#hn:hover{
     text-decoration-width: 5px ;
 }
 
-.phone1 {
-    height: 50px;
-    background-color: #98cbef;
-    border: 3px #c9c9a9;
+.mouseClick{
+    border: 5px white;
+    opacity: 60% ;
 }
 
-.pn{
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 300px;
-}
 
-.name {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 200px;
-}
 
-td.fn {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 300px;
-}
-td.sn {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 250px;
-}
-.st {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 250px;
-}
-.tdhover{ background-color: #98cbef;}
-.tdhover:hover{
-    cursor: pointer;
-    opacity: 50%;
-    border: 10px black;
+.ibutton{
+    margin:10px 20px;
+    padding: 10px 20px;
 
 }
-.hn {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 50px;
-}
-.fl {
-    background-color: #d1dce6;
-    font-size: 24px;
-    margin-left: 10px;
-    padding-left: 30px;
-    padding-right: 40px;
-    width: 50px;
+.ibutton:hover{
+    border: 5px white;
+    opacity: 60% ;
 }
