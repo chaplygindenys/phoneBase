@@ -1,3 +1,8 @@
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +10,7 @@
 }
 
 body {
-    background-color: #d1dce6;
+    background-color: #fff;
     padding: 40px;
 }
 
@@ -17,13 +22,149 @@ body {
 .updatePhone{
     display: flex;
     flex-direction: row;
+    width: 100%;
+    margin: auto;
+    overflow-x: auto;
+}
+input {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width:90%;
+    text-align: center;
+}
+
+
+.base {
+    max-width: 1170px;
+    margin :auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+.mtb-3 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.table-responsive{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
+}
+.out{
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+
+}
+.out th, .out td {
+    text-align: center;
+    padding: 10px;
+}
+
+.out th{
+    background-color: #1e88e5;
+    color: #fff ;
+}
+.out th:nth-child(odd) {
+    background: #2196f3;
+}
+
+.out tr:nth-child(even) {
+    background: #f5f5f5;
+}
+.out th{
+    transition: all .3s;
+}
+.out th:hover{
+    cursor: pointer;
+    opacity: 50%;
+}
+
+
+.tdhover{
+    transition: all .3s;
+    background-color: #98cbef;
+
+}
+.tdhover:hover{
+    cursor: pointer;
+    opacity: 50%;
+}
+.out td:not(:last-child){
+    border-right: 1px solid #ccc;
+}
+
+
+
+.up{
+    text-decoration: overline;
+    text-decoration-color: white;
+    text-decoration-width: 10px ;
+}
+.down{
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-width: 5px ;
+}
+
+.mouseClick{
+    border: 5px white;
+    opacity: 60% ;
+}
+
+
+
+.ibutton{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin:10px 20px;
+    padding: 10px 20px;
+    border: white;
+}
+.ibutton:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0.5, 0.2);
+    background-color: #707070;
+    border: white;
+    opacity: 60% ;
+}
+
+
+
+
+
+/*
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #d1dce6;
+    padding: 40px;
+}
+
+
+.updatePhone{
+    display: flex;
+    flex-direction: row;
 
 }
 .base {
+    max-width: 1170px;
+    margin :auto;
+    padding: 0 15px;
     background-color: aquamarine;
     display: flex;
     flex-direction: column;
 }
+.mtb-3 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.out{
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0.2);
+}
+
 
 td {
 
@@ -226,4 +367,4 @@ td.sn {
     padding-left: 30px;
     padding-right: 40px;
     width: 50px;
-}
+}*/
