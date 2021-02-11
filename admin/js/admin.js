@@ -1,5 +1,5 @@
 function init() {
-   $.post(
+    $.post(
         "core.php", //dir from html
         {
             "action": "init"
@@ -10,7 +10,7 @@ function init() {
 
 function streetOut(data){
     console.log(data)
-  /*  let data = JSON.parse(indata);*/
+    /*  let data = JSON.parse(indata);*/
     let out = ""
     out += '<tr class="phone1">' +
         '            <th id="st">Streets:</th>\n' +
@@ -53,22 +53,22 @@ function selectEventOnStreets(idUpDown,id,data){
         case "stdown" :
             sortByStringDown(id);
             break;
-            default:
-                streetsSearch(0,0,id,0,0);
+        default:
+            streetsSearch(0,0,id,0,0);
             break;
 
     }
 }
-function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
+function streetsSearch(phoneNumber,femaleName,street,houseNumber,flat){  // связь с PHP function
     $.post(
         "core.php",{
 
             "action" :'selectSearch' ,
-            "pn" : pn,
-            "fn" : fn,
-            "st" : st,
-            "hn" : hn,
-            "fl" : fl,
+            "phoneNumber" : phoneNumber,
+            "femaleName" : femaleName,
+            "street" : street,
+            "houseNumber" : houseNumber,
+            "flat" : flat,
         },
 
         phoneOut
@@ -251,39 +251,38 @@ function objectFindByKey(data, key, value) {
 }
 
 function addSearchForm(ask){  // связь с PHP function
-    let pn = $('.phoneNumber').val();
-    let fn = $('.femaleName').val();
-    let st = $('.street').val();
-    let hn = $('.houseNumber').val();
-    let fl = $('.flat').val();
+    let phoneNumber = $('.phoneNumber').val();
+    let femaleName = $('.femaleName').val();
+    let street = $('.street').val();
+    let houseNumber = $('.houseNumber').val();
+    let flat = $('.flat').val();
     if((pn!==null && pn!=="0")||(fn!==null && fn!=="0")|| (st!==null && st!=="0")||(hn!==null && hn!=="0")||(fl!==null && fl!=="0")){
-    $.post(
-        "core.php",{
+        $.post(
+            "core.php",{
 
-            "action" :ask ,
-            "pn" : pn,
-            "fn" : fn,
-            "st" : st,
-            "hn" : hn,
-            "fl" : fl,
-        },
+                "action" :ask ,
+                "phoneNumber" : phoneNumber,
+                "femaleName" : femaleName,
+                "street" : street,
+                "houseNumber" : houseNumber,
+                "flat" : flat,
+            },
 
-        function (data){
-            if(data !== null) {
-                phoneOut(data)
-            }else{ alert("нет данных")}
-        }
-    )
-} else { alert("Add ask to forms.(добавте запрос в форму)")}
+            function (data){
+                if(data !== null) {
+                    phoneOut(data)
+                }else{ alert("нет данных")}
+            }
+        )
+    } else { alert("Add ask to forms.(добавте запрос в форму)")}
 
 }
 
 
- $(document).ready(function () {
+$(document).ready(function () {
     init();
-   let eventSearch = document.querySelector('.searchPhone');
+    let eventSearch = document.querySelector('.searchPhone');
     eventSearch.onclick = function (event) {addSearchForm("selectSearch")}
-
 
      let eventAdd = document.querySelector('.addPhone');
      eventAdd.onclick = function (event) {addSearchForm("addPhone")}

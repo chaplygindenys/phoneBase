@@ -59,16 +59,16 @@ function selectEventOnStreets(idUpDown,id,data){
 
     }
 }
-function streetsSearch(pn,fn,st,hn,fl){  // связь с PHP function
+function streetsSearch(phoneNumber,femaleName,street,houseNumber,flat){  // связь с PHP function
     $.post(
         "core.php",{
 
             "action" :'selectSearch' ,
-            "pn" : pn,
-            "fn" : fn,
-            "st" : st,
-            "hn" : hn,
-            "fl" : fl,
+            "phoneNumber" : phoneNumber,
+            "femaleName" : femaleName,
+            "street" : street,
+            "houseNumber" : houseNumber,
+            "flat" : flat,
         },
 
         phoneOut
@@ -251,21 +251,21 @@ function objectFindByKey(data, key, value) {
 }
 
 function addSearchForm(ask){  // связь с PHP function
-    let pn = $('.phoneNumber').val();
-    let fn = $('.femaleName').val();
-    let st = $('.street').val();
-    let hn = $('.houseNumber').val();
-    let fl = $('.flat').val();
+    let phoneNumber = $('.phoneNumber').val();
+    let femaleName = $('.femaleName').val();
+    let street = $('.street').val();
+    let houseNumber = $('.houseNumber').val();
+    let flat = $('.flat').val();
     if((pn!==null && pn!=="0")||(fn!==null && fn!=="0")|| (st!==null && st!=="0")||(hn!==null && hn!=="0")||(fl!==null && fl!=="0")){
         $.post(
             "core.php",{
 
                 "action" :ask ,
-                "pn" : pn,
-                "fn" : fn,
-                "st" : st,
-                "hn" : hn,
-                "fl" : fl,
+                "phoneNumber" : phoneNumber,
+                "femaleName" : femaleName,
+                "street" : street,
+                "houseNumber" : houseNumber,
+                "flat" : flat,
             },
 
             function (data){
