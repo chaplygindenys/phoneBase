@@ -18,7 +18,7 @@ function streetOut(data){
     for(let i = 1; i < data.length-1; i=i+3){
 
         out += ' <tr class="phone2" >' +
-            '<td class="st tdhover" id ="' + data[i-1].streets + '"  >' + data[i-1].streets + '"</td>\n' +
+            '<td class="st tdhover" id ="' + data[i-1].streets + '"  >' + data[i-1].streets + '</td>\n' +
             '<td class="st tdhover" id ="' + data[i].streets + '"  >' + data[i].streets + '</td>\n ' +
             '<td class="st tdhover" id ="' + data[i+1].streets + '"  >' + data[i+1].streets + '</td>\n ' +
             '</tr>';

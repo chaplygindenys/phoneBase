@@ -22,7 +22,7 @@ function queryToData($askDb)
     $pdo = pdoConectObject();
 
     try {
-        $arrey = $pdo->query("$askDb")->fetchAll(PDO::FETCH_ASSOC);
+        $arrey = $pdo->query("$askDb")->fetchAll(PDO::FETCH_ASSOC); //возвращает массив, индексированный именами столбцов результирующего набора
         $pdo = null;
         return $arrey;
     } catch (PDOException $e) {
@@ -34,21 +34,22 @@ function queryToData($askDb)
 function responsToJsonPost($askDb)
 {
     $resalt = queryToData($askDb);
-    if ($resalt > 0) {
+    if ($resalt[0]["id"] > 0) {   //isset
         echo json_encode($resalt);
     } else {
-        echo "0";
+        $resalt[0]["famely"]= "No data found";
+        $resalt[0]["streets"]= "Нет таких данных";
+        echo json_encode($resalt);
     }
 }
 
 function  responsToJsonFile($askDb)
 {
-    $resalt = queryToData($askDb);
-    if ($resalt > 0) {
-        file_put_contents('phone.json', json_encode($resalt));
-    } else {
-        echo "0";
-    }
+     $resalt = queryToData($askDb);
+     if (isset($resalt[0]["id"])) {   //isset
+         file_put_contents('phone.json', json_encode($resalt));
+     }
+
 }
 
 function returnNewPhone($phoneNumber)

@@ -30,25 +30,25 @@ function queryToData($askDb)
         die();
     }
 }
-
 function responsToJsonPost($askDb)
 {
     $resalt = queryToData($askDb);
-    if ($resalt > 0) {
+    if ($resalt[0]["id"] > 0) {   //isset
         echo json_encode($resalt);
     } else {
-        echo "0";
+        $resalt[0]["famely"]= "No data found";
+        $resalt[0]["streets"]= "Нет таких данных";
+        echo json_encode($resalt);
     }
 }
 
 function  responsToJsonFile($askDb)
 {
     $resalt = queryToData($askDb);
-    if ($resalt > 0) {
+    if (isset($resalt[0]["id"])) {   //isset
         file_put_contents('phone.json', json_encode($resalt));
-    } else {
-        echo "0";
     }
+
 }
 
 function returnNewPhone($phoneNumber)
