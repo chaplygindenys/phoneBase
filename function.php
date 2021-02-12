@@ -1,6 +1,6 @@
 <?php
 
-function pdoConectObject()
+function pdoConectObject($askDb, $paramAsk)
 {
     $host = 'localhost';
     $db = 'phoneBase';
@@ -14,39 +14,54 @@ function pdoConectObject()
         PDO::ATTR_EMULATE_PREPARES => false,
     ]; // set the PDO error mode to exception
     $pdo = new PDO($dsn, $user, $pass, $opt);
-    return $pdo;
-}
 
-function queryToData($askDb)
-{
-    $pdo = pdoConectObject();
+    if ($paramAsk === "SELECT") {
+        try {
+            $arrey = $pdo->query($askDb)->fetchAll(PDO::FETCH_ASSOC); //возвращает массив, индексированный именами столбцов результирующего набора
+            return $arrey;
+        } catch (PDOException $e) {
+            echo $askDb . $e->getMessage() . "<br/>";
+            die();
+        }
+    } elseif ($paramAsk === "UPDATE") {
 
-    try {
-        $arrey = $pdo->query("$askDb")->fetchAll(PDO::FETCH_ASSOC);
-        $pdo = null;
-        return $arrey;
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage() . "<br/>";
-        die();
+        try {
+            $stmt = $pdo->prepare($askDb); // Prepare statement
+            $stmt->execute(); // execute the query
+        } catch (PDOException $e) {
+            echo $askDb . "<br>" . $e->getMessage();
+        }
+
+    } elseif ($paramAsk === "INSERT") {
+        try {
+            $pdo->exec($askDb); // use exec() because no results are returned
+        } catch (PDOException $e) {
+            echo $askDb . "<br>" . $e->getMessage();
+        }
     }
+    $pdo = null;
+
 }
+
 function responsToJsonPost($askDb)
 {
-    $resalt = queryToData($askDb);
-    if ($resalt[0]["id"] > 0) {   //isset
+    $resalt = pdoConectObject($askDb, "SELECT");
+    if (!empty($resalt)) {   //isset
         echo json_encode($resalt);
     } else {
-        $resalt[0]["famely"]= "No data found";
-        $resalt[0]["streets"]= "Нет таких данных";
+        $resalt = "No data found";
         echo json_encode($resalt);
     }
 }
 
-function  responsToJsonFile($askDb)
+function responsToJsonFile($askDb)
 {
-    $resalt = queryToData($askDb);
-    if (isset($resalt[0]["id"])) {   //isset
+    $resalt = pdoConectObject($askDb, "SELECT");
+    if (!empty($resalt)) {   //isset
         file_put_contents('phone.json', json_encode($resalt));
+    } else {
+        $resalt = "No data found";
+        echo json_encode($resalt);
     }
 
 }
@@ -123,7 +138,7 @@ function addPhone()
     $houseNumber = $_POST["houseNumber"];
     $flat = $_POST["flat"];
     $askDb = "SELECT number FROM phone WHERE $phoneNumber";
-    $resalt = queryToData($askDb);
+    $resalt = pdoConectObject($askDb, "SELECT");
     if ($resalt) {
         updatePhone($phoneNumber, $femaleName, $street, $houseNumber, $flat);
     } else {
@@ -133,28 +148,14 @@ function addPhone()
 
 function updatePhone($phoneNumber, $femaleName, $street, $houseNumber, $flat)
 {
-    $pdo = pdoConectObject();
-    try {
-        $sql = "UPDATE phone SET number ='$phoneNumber', famely = '$femaleName', streets = '$street', houses ='$houseNumber', flats ='$flat'    WHERE number = '$phoneNumber' ";
-        $stmt = $pdo->prepare($sql); // Prepare statement
-        $stmt->execute(); // execute the query
-        returnNewPhone($phoneNumber);// echo a message to say the UPDATE succeeded
-    } catch (PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
-    $pdo = null;
+    $askDb = "UPDATE phone SET number ='$phoneNumber', famely = '$femaleName', streets = '$street', houses ='$houseNumber', flats ='$flat'    WHERE number = '$phoneNumber' ";
+    pdoConectObject($askDb, "UPDATE");
+    returnNewPhone($phoneNumber);// Select new row and comeback it.
 }
 
 function insertPhone($phoneNumber, $femaleName, $street, $houseNumber, $flat)
 {
-    $pdo = pdoConectObject();
-    try {
-        $sql = "INSERT INTO phone (number, famely,streets,houses,flats) VALUES ('$phoneNumber','$femaleName','$street','$houseNumber','$flat')";
-        $pdo->exec($sql); // use exec() because no results are returned
-        returnNewPhone($phoneNumber);// Select new row and comeback it.
-    } catch (PDOException $e) {
-        echo $sql . "<br>" . $e->getMessage();
-    }
-    $pdo = null;
+    $askDb = "INSERT INTO phone (number, famely,streets,houses,flats) VALUES ('$phoneNumber','$femaleName','$street','$houseNumber','$flat')";
+    pdoConectObject($askDb, "INSERT");
+    returnNewPhone($phoneNumber);// Select new row and comeback it.
 }
-
